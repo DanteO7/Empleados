@@ -1,5 +1,4 @@
-﻿using Empleados.Enums;
-using System.ComponentModel;
+using Empleados.Enums;
 
 namespace Empleados.Modelos
 {
@@ -19,6 +18,48 @@ namespace Empleados.Modelos
             foreach(var empleado in Empleados.Values)
             {
                 Console.WriteLine(empleado);
+            }
+        }
+
+        public static void MostrarEmpleadosPorDepartamento()
+        {
+            if (Empleados.Count == 0)
+            {
+                Console.WriteLine("No hay empleados para mostrar.");
+                return;
+            }
+
+            Console.WriteLine("Seleccione el departamento para ver sus empleados:");
+            foreach(var departemento in Enum.GetValues(typeof(Departamento)))
+            {
+                Console.WriteLine($"{(int)departemento}. {departemento}");
+            }
+            int depIndex = int.Parse(Console.ReadLine());
+
+            bool empleadosEnDepartamento = false;
+            foreach(var empleado in Empleados.Values)
+            {
+                if(empleado.Departamento == (Departamento)depIndex)
+                {
+                    empleadosEnDepartamento = true;
+                    break;
+                }
+            }
+
+            if (empleadosEnDepartamento)
+            {
+                Console.WriteLine($"La lista de empleados de {(Departamento)depIndex}:");
+                foreach (var empleado in Empleados.Values)
+                {
+                    if (empleado.Departamento == (Departamento)depIndex)
+                    {
+                        Console.WriteLine(empleado);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("No hay empleados en este departamento");
             }
         }
 
